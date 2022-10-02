@@ -1,0 +1,1 @@
+/usr/bin/c++    -rdynamic CMakeFiles/talker.dir/src/solver.cpp.o  -o /home/kgarg/robotics/icp_slam/devel/lib/icp_node/talker 

@@ -1,0 +1,8 @@
+prefix=/home/kgarg/robotics/icp_slam/install
+
+Name: icp_node
+Description: Description of icp_node
+Version: 0.0.0
+Cflags: 
+Libs: -L${prefix}/lib 
+Requires: 

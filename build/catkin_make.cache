@@ -1,0 +1,2 @@
+icp_node
+-DCATKIN_DEVEL_PREFIX=/home/kgarg/robotics/icp_slam/devel -DCMAKE_INSTALL_PREFIX=/home/kgarg/robotics/icp_slam/install -G Unix Makefiles

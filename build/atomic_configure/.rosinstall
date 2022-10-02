@@ -1,0 +1,2 @@
+- setup-file:
+    local-name: /home/kgarg/robotics/icp_slam/devel/setup.sh
