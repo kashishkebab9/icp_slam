@@ -6,4 +6,11 @@ Need to playback rosbag with rosbag play LOG_NAME.bag in T3
 [X] Need to figure out how to read laser scan data from rosbag in my node
 [X] Need to make a class that can save 2 subsequent scans 
 [] Need to be able to make data associations with each scan
+  [X] Convert points to x,y pairs
+  [] Determine Center of Mass of both data sets
+  [] Distance between the two COMs will give a good translation approximation
+
 []
+
+
+Now the best way to make data associations, I THINK, is to perform a Nearest neighbor algorithm from one point in the source scan to all the points in the target scan.

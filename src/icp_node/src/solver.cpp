@@ -2,6 +2,7 @@
 #include <sensor_msgs/LaserScan.h>
 #include <vector>
 #include <cmath>
+#include <utility>
 
 class Solver{
   private:
@@ -10,6 +11,8 @@ class Solver{
     std::vector<float> target_vec;
 
   public:
+    float angle_min;
+    float angle_inc;
 
     void SetSourceVec(std::vector<float> source) {
       this->source_vec = source;
@@ -29,8 +32,8 @@ class Solver{
 
     void SolverCallback(const sensor_msgs::LaserScan::ConstPtr& msg) {
       
-      auto angle_min = msg->angle_min;
-      auto angle_inc = msg->angle_increment;
+      this->angle_min = msg->angle_min;
+      this->angle_inc = msg->angle_increment;
 
       auto angle = angle_min;
       std::vector<float> newest;
@@ -46,22 +49,38 @@ class Solver{
       }
 
       this->SetTargetVec(newest);
-      this->PrintTargetVec();
-      this->PrintSourceVec();
-      StartSolver();
+      //this->PrintTargetVec();
+      //this->PrintSourceVec();
+      auto target_cart = Polar2Cartesian(this->target_vec);
+      auto source_cart = Polar2Cartesian(this->source_vec);
+      for (int j = 0; j < target_cart.size(); j++) {
+        //ROS_INFO("Target Cart||Coordinate %i [x, y]: %f, %f", j, target_cart[j].first, target_cart[j].second);
+        std::cout << "Target Cart||Coordinate " << j << "[x, y]:" <<  target_cart[j].first <<", " <<   target_cart[j].second << std::endl;
+      }
+
       
     }
 
-    void StartSolver() {
-      if (!GetTargetVec().size() == 0 && !GetSourceVec().size() == 0) {
-        //std::cout << "Size of Target_Vec: " << GetTargetVec().size() << std::endl;
-        //std::cout << "Size of Source_Vec: " << GetSourceVec().size() << std::endl;
-        
+    std::vector<std::pair<float, float>> Polar2Cartesian(std::vector<float> input) {
+      std::vector<std::pair<float, float>> output_vec; 
 
+      for(int i= 0; i < input.size(); i++) {
+        float x, y;
+        float ang = this->angle_min + this->angle_inc * i; 
+        x = input[i] * cos(ang);
+        y = input[i] * sin(ang);
+        std::pair<float, float> coordinate(x,y);
+        output_vec.push_back(std::make_pair(x, y));
       }
-
+      return output_vec;
 
     }
+    
+    std::pair<float, float> CalcCom(std::vector<std::pair<float, float>> input) {
+
+    }
+
+
 
     void PrintTargetVec() {
       if(this->target_vec.size() > 0) {
