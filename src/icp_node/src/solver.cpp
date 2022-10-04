@@ -1,9 +1,11 @@
 #include "ros/ros.h"
 #include <sensor_msgs/LaserScan.h>
 #include <vector>
+#include <cmath>
 
 class Solver{
   private:
+    //Both target and source vecs will contain inf values if that is what is recorded
     std::vector<float> source_vec;
     std::vector<float> target_vec;
 
@@ -29,15 +31,12 @@ class Solver{
       
       auto angle_min = msg->angle_min;
       auto angle_inc = msg->angle_increment;
-      //ROS_INFO("Angle Increment: %f", angle_inc);
-      //ROS_INFO("Angle Min: %f", angle_min);
 
       auto angle = angle_min;
       std::vector<float> newest;
 
       for (int j = 0; j < msg->ranges.size(); j++) {
         angle = angle_min + (angle_inc * j);
-        //ROS_INFO("RangeVal(Angle, Range): %f, %f ", angle, msg->ranges[j]);
         newest.push_back(msg->ranges[j]);
         
       }
@@ -47,6 +46,8 @@ class Solver{
       }
 
       this->SetTargetVec(newest);
+      this->PrintTargetVec();
+      this->PrintSourceVec();
       StartSolver();
       
     }
@@ -55,10 +56,32 @@ class Solver{
       if (!GetTargetVec().size() == 0 && !GetSourceVec().size() == 0) {
         //std::cout << "Size of Target_Vec: " << GetTargetVec().size() << std::endl;
         //std::cout << "Size of Source_Vec: " << GetSourceVec().size() << std::endl;
+        
 
       }
 
 
+    }
+
+    void PrintTargetVec() {
+      if(this->target_vec.size() > 0) {
+        for (int i=0; i < this->target_vec.size(); i++) {
+          if(!isinf(target_vec[i])) {
+            ROS_INFO("Target: %f", this->target_vec[i]);
+
+          }
+        }
+      }
+    }
+    void PrintSourceVec() {
+      if(this->source_vec.size() > 0) {
+        for (int i=0; i < this->source_vec.size(); i++) {
+          if(!isinf(source_vec[i])) {
+            ROS_INFO("Source: %f", this->source_vec[i]);
+
+          }
+        }
+      }
     }
 
 };

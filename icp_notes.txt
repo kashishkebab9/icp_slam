@@ -1,0 +1,9 @@
+Need to have roscore running in T1
+Need to have rviz running in T2
+Need to run rosrun icp_node solver
+Need to playback rosbag with rosbag play LOG_NAME.bag in T3
+
+[X] Need to figure out how to read laser scan data from rosbag in my node
+[X] Need to make a class that can save 2 subsequent scans 
+[] Need to be able to make data associations with each scan
+[]

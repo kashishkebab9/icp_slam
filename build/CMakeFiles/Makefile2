@@ -136,6 +136,7 @@ gtest/googletest/clean: gtest/googletest/CMakeFiles/gtest.dir/clean
 # Directory level rules for directory icp_node
 
 # Recursive "all" directory target.
+icp_node/all: icp_node/CMakeFiles/points.dir/all
 icp_node/all: icp_node/CMakeFiles/solver.dir/all
 
 .PHONY : icp_node/all
@@ -150,6 +151,7 @@ icp_node/clean: icp_node/CMakeFiles/std_msgs_generate_messages_py.dir/clean
 icp_node/clean: icp_node/CMakeFiles/std_msgs_generate_messages_nodejs.dir/clean
 icp_node/clean: icp_node/CMakeFiles/roscpp_generate_messages_cpp.dir/clean
 icp_node/clean: icp_node/CMakeFiles/roscpp_generate_messages_eus.dir/clean
+icp_node/clean: icp_node/CMakeFiles/points.dir/clean
 icp_node/clean: icp_node/CMakeFiles/rosgraph_msgs_generate_messages_nodejs.dir/clean
 icp_node/clean: icp_node/CMakeFiles/std_msgs_generate_messages_lisp.dir/clean
 icp_node/clean: icp_node/CMakeFiles/roscpp_generate_messages_py.dir/clean
@@ -518,6 +520,33 @@ icp_node/CMakeFiles/roscpp_generate_messages_eus.dir/clean:
 .PHONY : icp_node/CMakeFiles/roscpp_generate_messages_eus.dir/clean
 
 #=============================================================================
+# Target rules for target icp_node/CMakeFiles/points.dir
+
+# All Build rule for target.
+icp_node/CMakeFiles/points.dir/all:
+	$(MAKE) -f icp_node/CMakeFiles/points.dir/build.make icp_node/CMakeFiles/points.dir/depend
+	$(MAKE) -f icp_node/CMakeFiles/points.dir/build.make icp_node/CMakeFiles/points.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/kgarg/robotics/icp_slam/build/CMakeFiles --progress-num=9,10 "Built target points"
+.PHONY : icp_node/CMakeFiles/points.dir/all
+
+# Build rule for subdir invocation for target.
+icp_node/CMakeFiles/points.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/kgarg/robotics/icp_slam/build/CMakeFiles 2
+	$(MAKE) -f CMakeFiles/Makefile2 icp_node/CMakeFiles/points.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/kgarg/robotics/icp_slam/build/CMakeFiles 0
+.PHONY : icp_node/CMakeFiles/points.dir/rule
+
+# Convenience name for target.
+points: icp_node/CMakeFiles/points.dir/rule
+
+.PHONY : points
+
+# clean rule for target.
+icp_node/CMakeFiles/points.dir/clean:
+	$(MAKE) -f icp_node/CMakeFiles/points.dir/build.make icp_node/CMakeFiles/points.dir/clean
+.PHONY : icp_node/CMakeFiles/points.dir/clean
+
+#=============================================================================
 # Target rules for target icp_node/CMakeFiles/rosgraph_msgs_generate_messages_nodejs.dir
 
 # All Build rule for target.
@@ -767,7 +796,7 @@ icp_node/CMakeFiles/rosgraph_msgs_generate_messages_lisp.dir/clean:
 icp_node/CMakeFiles/solver.dir/all:
 	$(MAKE) -f icp_node/CMakeFiles/solver.dir/build.make icp_node/CMakeFiles/solver.dir/depend
 	$(MAKE) -f icp_node/CMakeFiles/solver.dir/build.make icp_node/CMakeFiles/solver.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/kgarg/robotics/icp_slam/build/CMakeFiles --progress-num=9,10 "Built target solver"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/kgarg/robotics/icp_slam/build/CMakeFiles --progress-num=11,12 "Built target solver"
 .PHONY : icp_node/CMakeFiles/solver.dir/all
 
 # Build rule for subdir invocation for target.

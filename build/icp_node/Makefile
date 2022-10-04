@@ -228,6 +228,21 @@ roscpp_generate_messages_eus/fast:
 .PHONY : roscpp_generate_messages_eus/fast
 
 # Convenience name for target.
+icp_node/CMakeFiles/points.dir/rule:
+	cd /home/kgarg/robotics/icp_slam/build && $(MAKE) -f CMakeFiles/Makefile2 icp_node/CMakeFiles/points.dir/rule
+.PHONY : icp_node/CMakeFiles/points.dir/rule
+
+# Convenience name for target.
+points: icp_node/CMakeFiles/points.dir/rule
+
+.PHONY : points
+
+# fast build rule for target.
+points/fast:
+	cd /home/kgarg/robotics/icp_slam/build && $(MAKE) -f icp_node/CMakeFiles/points.dir/build.make icp_node/CMakeFiles/points.dir/build
+.PHONY : points/fast
+
+# Convenience name for target.
 icp_node/CMakeFiles/rosgraph_msgs_generate_messages_nodejs.dir/rule:
 	cd /home/kgarg/robotics/icp_slam/build && $(MAKE) -f CMakeFiles/Makefile2 icp_node/CMakeFiles/rosgraph_msgs_generate_messages_nodejs.dir/rule
 .PHONY : icp_node/CMakeFiles/rosgraph_msgs_generate_messages_nodejs.dir/rule
@@ -407,6 +422,33 @@ rosgraph_msgs_generate_messages_py/fast:
 	cd /home/kgarg/robotics/icp_slam/build && $(MAKE) -f icp_node/CMakeFiles/rosgraph_msgs_generate_messages_py.dir/build.make icp_node/CMakeFiles/rosgraph_msgs_generate_messages_py.dir/build
 .PHONY : rosgraph_msgs_generate_messages_py/fast
 
+src/points_draw.o: src/points_draw.cpp.o
+
+.PHONY : src/points_draw.o
+
+# target to build an object file
+src/points_draw.cpp.o:
+	cd /home/kgarg/robotics/icp_slam/build && $(MAKE) -f icp_node/CMakeFiles/points.dir/build.make icp_node/CMakeFiles/points.dir/src/points_draw.cpp.o
+.PHONY : src/points_draw.cpp.o
+
+src/points_draw.i: src/points_draw.cpp.i
+
+.PHONY : src/points_draw.i
+
+# target to preprocess a source file
+src/points_draw.cpp.i:
+	cd /home/kgarg/robotics/icp_slam/build && $(MAKE) -f icp_node/CMakeFiles/points.dir/build.make icp_node/CMakeFiles/points.dir/src/points_draw.cpp.i
+.PHONY : src/points_draw.cpp.i
+
+src/points_draw.s: src/points_draw.cpp.s
+
+.PHONY : src/points_draw.s
+
+# target to generate assembly for a file
+src/points_draw.cpp.s:
+	cd /home/kgarg/robotics/icp_slam/build && $(MAKE) -f icp_node/CMakeFiles/points.dir/build.make icp_node/CMakeFiles/points.dir/src/points_draw.cpp.s
+.PHONY : src/points_draw.cpp.s
+
 src/solver.o: src/solver.cpp.o
 
 .PHONY : src/solver.o
@@ -448,6 +490,7 @@ help:
 	@echo "... std_msgs_generate_messages_nodejs"
 	@echo "... roscpp_generate_messages_cpp"
 	@echo "... roscpp_generate_messages_eus"
+	@echo "... points"
 	@echo "... rosgraph_msgs_generate_messages_nodejs"
 	@echo "... list_install_components"
 	@echo "... std_msgs_generate_messages_lisp"
@@ -463,6 +506,9 @@ help:
 	@echo "... solver"
 	@echo "... roscpp_generate_messages_lisp"
 	@echo "... rosgraph_msgs_generate_messages_py"
+	@echo "... src/points_draw.o"
+	@echo "... src/points_draw.i"
+	@echo "... src/points_draw.s"
 	@echo "... src/solver.o"
 	@echo "... src/solver.i"
 	@echo "... src/solver.s"

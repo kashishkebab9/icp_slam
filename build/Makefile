@@ -337,6 +337,19 @@ roscpp_generate_messages_eus/fast:
 .PHONY : roscpp_generate_messages_eus/fast
 
 #=============================================================================
+# Target rules for targets named points
+
+# Build rule for target.
+points: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 points
+.PHONY : points
+
+# fast build rule for target.
+points/fast:
+	$(MAKE) -f icp_node/CMakeFiles/points.dir/build.make icp_node/CMakeFiles/points.dir/build
+.PHONY : points/fast
+
+#=============================================================================
 # Target rules for targets named rosgraph_msgs_generate_messages_nodejs
 
 # Build rule for target.
@@ -518,6 +531,7 @@ help:
 	@echo "... std_msgs_generate_messages_nodejs"
 	@echo "... roscpp_generate_messages_cpp"
 	@echo "... roscpp_generate_messages_eus"
+	@echo "... points"
 	@echo "... rosgraph_msgs_generate_messages_nodejs"
 	@echo "... std_msgs_generate_messages_lisp"
 	@echo "... roscpp_generate_messages_py"

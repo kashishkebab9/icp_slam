@@ -21,3 +21,6 @@ include_directories(include ${catkin_INCLUDE_DIRS})
 add_executable(solver src/solver.cpp)
 target_link_libraries(solver ${catkin_LIBRARIES})
 
+add_executable(points src/points_draw.cpp)
+target_link_libraries(points ${catkin_LIBRARIES})
+

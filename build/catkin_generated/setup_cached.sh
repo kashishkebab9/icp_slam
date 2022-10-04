@@ -7,5 +7,9 @@
 # new environment variables
 
 # modified environment variables
+export CMAKE_PREFIX_PATH="/home/kgarg/robotics/icp_slam/devel:$CMAKE_PREFIX_PATH"
+export LD_LIBRARY_PATH="/home/kgarg/robotics/icp_slam/devel/lib:$LD_LIBRARY_PATH"
 export PKG_CONFIG_PATH="/home/kgarg/robotics/icp_slam/devel/lib/pkgconfig:$PKG_CONFIG_PATH"
 export PWD='/home/kgarg/robotics/icp_slam/build'
+export ROSLISP_PACKAGE_DIRECTORIES='/home/kgarg/robotics/icp_slam/devel/share/common-lisp'
+export ROS_PACKAGE_PATH="/home/kgarg/robotics/icp_slam/src:$ROS_PACKAGE_PATH"
