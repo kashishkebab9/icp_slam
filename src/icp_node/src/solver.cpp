@@ -3,16 +3,21 @@
 #include <vector>
 #include <cmath>
 #include <utility>
+#include <visualization_msgs/Marker.h>
 
 class Solver{
   private:
     //Both target and source vecs will contain inf values if that is what is recorded
     std::vector<float> source_vec;
     std::vector<float> target_vec;
+    std::vector<std::pair<float, float>> com_displacements;
 
   public:
     float angle_min;
     float angle_inc;
+    std::pair<float, float> source_com;
+    std::pair<float, float> target_com;
+    std::pair<float, float> com_displacement;
 
     void SetSourceVec(std::vector<float> source) {
       this->source_vec = source;
@@ -59,14 +64,17 @@ class Solver{
 //        ROS_INFO("Target Cart||Coordinate %i [x, y]: %f, %f", j, target_cart[j].first, target_cart[j].second);
 //      }
 
-      auto source_com = CalcCom(source_cart);
-      auto target_com = CalcCom(target_cart);
+      this->source_com = CalcCom(source_cart);
+      this->target_com = CalcCom(target_cart);
 
-      ROS_INFO("Source COM[x,y]: %f, %f", source_com.first, source_com.second);
-      ROS_INFO("Target COM[x,y]: %f, %f", target_com.first, target_com.second);
-      auto displacement_com_x = target_com.first - source_com.first;
-      auto displacement_com_y = target_com.second - source_com.second;
+      ROS_INFO("Source COM[x,y]: %f, %f", this->source_com.first, this->source_com.second);
+      ROS_INFO("Target COM[x,y]: %f, %f", this->target_com.first, this->target_com.second);
+      auto displacement_com_x =this->target_com.first - this->source_com.first;
+      auto displacement_com_y =this->target_com.second - this->source_com.second;
+      this->com_displacement = std::make_pair(displacement_com_x, displacement_com_y);
       ROS_INFO("Translation[x,y]: %f, %f", displacement_com_x, displacement_com_y);
+      this->com_displacements.push_back(com_displacement);
+
 
       
     }
@@ -108,6 +116,18 @@ class Solver{
 
     }
 
+    void PublishComMarkers() {
+      while(ros::ok()) {
+        visualization_msgs::Marker points;
+        points.header.frame_id = "odom";
+        points.header.stamp = ros::Time::now();
+        points.ns = "icp_points";
+        points.action
+
+      }
+
+    }
+
 
 
     void PrintTargetVec() {
@@ -137,10 +157,13 @@ class Solver{
 int main(int argc, char **argv)
 {
   //Need to make two empty vectors 
-  ros::init(argc, argv, "listener");
+  ros::init(argc, argv, "icp");
   ros::NodeHandle n;
   Solver solver;
   ros::Subscriber sub = n.subscribe("scan", 1000, &Solver::SolverCallback, &solver);
+  ros::Publisher vis_pub = n.advertise<visualization_msgs::Marker>("visualization_maker", 10);
+  ros::Rate r(10);
+  solver.PublishComMarkers();
   ros::spin();
 
   return 0;

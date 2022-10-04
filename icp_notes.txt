@@ -9,9 +9,8 @@ Need to playback rosbag with rosbag play LOG_NAME.bag in T3
   [X] Convert points to x,y pairs
   [X] Determine Center of Mass of both data sets
   [X] Distance between the two COMs will give a good translation approximation
-  [] Visualize this com movement
+  [] Visualize this com translation
     [] Need to publish COM points (x,y) and translation vector (could just be a line between both COM points for the timebeing)
 
-
-
 Now the best way to make data associations, I THINK, is to perform a Nearest neighbor algorithm from one point in the source scan to all the points in the target scan.
+But, initially we need a solid guess, which would be the nearest neighbor search
