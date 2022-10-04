@@ -41,7 +41,6 @@ class Solver{
       for (int j = 0; j < msg->ranges.size(); j++) {
         angle = angle_min + (angle_inc * j);
         newest.push_back(msg->ranges[j]);
-        
       }
 
       if (!this->GetTargetVec().size() == 0) {
@@ -49,14 +48,25 @@ class Solver{
       }
 
       this->SetTargetVec(newest);
+
       //this->PrintTargetVec();
       //this->PrintSourceVec();
-      auto target_cart = Polar2Cartesian(this->target_vec);
-      auto source_cart = Polar2Cartesian(this->source_vec);
-      for (int j = 0; j < target_cart.size(); j++) {
-        //ROS_INFO("Target Cart||Coordinate %i [x, y]: %f, %f", j, target_cart[j].first, target_cart[j].second);
-        std::cout << "Target Cart||Coordinate " << j << "[x, y]:" <<  target_cart[j].first <<", " <<   target_cart[j].second << std::endl;
-      }
+
+      auto target_cart = this->Polar2Cartesian(this->target_vec);
+      auto source_cart = this->Polar2Cartesian(this->source_vec);
+
+//      for (int j = 0; j < target_cart.size(); j++) {
+//        ROS_INFO("Target Cart||Coordinate %i [x, y]: %f, %f", j, target_cart[j].first, target_cart[j].second);
+//      }
+
+      auto source_com = CalcCom(source_cart);
+      auto target_com = CalcCom(target_cart);
+
+      ROS_INFO("Source COM[x,y]: %f, %f", source_com.first, source_com.second);
+      ROS_INFO("Target COM[x,y]: %f, %f", target_com.first, target_com.second);
+      auto displacement_com_x = target_com.first - source_com.first;
+      auto displacement_com_y = target_com.second - source_com.second;
+      ROS_INFO("Translation[x,y]: %f, %f", displacement_com_x, displacement_com_y);
 
       
     }
@@ -77,6 +87,24 @@ class Solver{
     }
     
     std::pair<float, float> CalcCom(std::vector<std::pair<float, float>> input) {
+      float x_out{0};
+      float y_out{0};
+      int counter{0};
+
+      for (auto i: input) {
+        if (!isinf(i.first) && !isinf(i.second)){
+          x_out += i.first;
+          y_out += i.second;
+          counter++;
+
+        }
+        
+
+      }
+      x_out = x_out/counter;
+      y_out = y_out/counter;
+      return std::make_pair(x_out, y_out);
+      
 
     }
 

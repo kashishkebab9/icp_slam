@@ -9,6 +9,7 @@ project(icp_node)
 ## is used, also find other catkin packages
 find_package(catkin REQUIRED COMPONENTS
   roscpp
+  visualization_msgs
 )
 
 
