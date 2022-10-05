@@ -11,6 +11,7 @@ class Solver{
     std::vector<float> source_vec;
     std::vector<float> target_vec;
     std::vector<std::pair<float, float>> com_displacements;
+    std::vector<std::pair<float, float>> com_vec;
 
   public:
     float angle_min;
@@ -36,6 +37,7 @@ class Solver{
     }
 
     void SolverCallback(const sensor_msgs::LaserScan::ConstPtr& msg) {
+      std::cout <<"Enter SolverCallback" << std::endl;
       
       this->angle_min = msg->angle_min;
       this->angle_inc = msg->angle_increment;
@@ -66,6 +68,7 @@ class Solver{
 
       this->source_com = CalcCom(source_cart);
       this->target_com = CalcCom(target_cart);
+      this->com_vec.push_back(target_com);
 
       ROS_INFO("Source COM[x,y]: %f, %f", this->source_com.first, this->source_com.second);
       ROS_INFO("Target COM[x,y]: %f, %f", this->target_com.first, this->target_com.second);
@@ -116,18 +119,10 @@ class Solver{
 
     }
 
-    void PublishComMarkers() {
-      while(ros::ok()) {
-        visualization_msgs::Marker points;
-        points.header.frame_id = "odom";
-        points.header.stamp = ros::Time::now();
-        points.ns = "icp_points";
-        points.action
 
-      }
-
+    std::vector<std::pair<float, float>> GetComVector() {
+      return this->com_vec;
     }
-
 
 
     void PrintTargetVec() {
@@ -156,14 +151,43 @@ class Solver{
 
 int main(int argc, char **argv)
 {
-  //Need to make two empty vectors 
   ros::init(argc, argv, "icp");
   ros::NodeHandle n;
   Solver solver;
   ros::Subscriber sub = n.subscribe("scan", 1000, &Solver::SolverCallback, &solver);
-  ros::Publisher vis_pub = n.advertise<visualization_msgs::Marker>("visualization_maker", 10);
-  ros::Rate r(10);
-  solver.PublishComMarkers();
+  ros::Publisher marker_pub = n.advertise<visualization_msgs::Marker>("visualization_marker", 10);
+  ros::Rate loop_rate(10);
+
+  while(ros::ok()) {
+    visualization_msgs::Marker points;
+    if(solver.GetComVector().size() > 0) {
+      std::cout << "Step 2" << std::endl;
+      points.header.frame_id = "laser";
+      points.header.stamp = ros::Time::now();
+      points.ns = "icp_points";
+      points.action = visualization_msgs::Marker::ADD;
+      points.pose.orientation.w = 1.0;
+      points.id = 0;
+      points.type = visualization_msgs::Marker::POINTS;
+      points.scale.x = .2;
+      points.scale.y = .2;
+      points.color.g = 1.0f;
+      points.color.a = 1.0;
+
+      for(auto i : solver.GetComVector()) {
+        std::cout << "Adding Point [x,y]: " << i.first << ", " << i.second << std::endl;
+        geometry_msgs::Point p;
+        p.x = i.first;
+        p.y = i.second;
+        p.z = 0;
+        points.points.push_back(p);
+      }
+
+    }
+    marker_pub.publish(points);
+    ros::spinOnce();
+    loop_rate.sleep();
+  }
   ros::spin();
 
   return 0;
